@@ -1,8 +1,8 @@
 query(
   $repoOwner: String!
   $repoName: String!
-  $fetchIssueCount: Int!
-  $fetchCommentCount: Int!
+  $fetchIssueCount: Int = 5
+  $fetchCommentCount: Int = 5
 ) {
   repository(owner: $repoOwner, name: $repoName) {
     name
