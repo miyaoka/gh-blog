@@ -1,64 +1,87 @@
 <template>
   <section class="container">
-    <div>
-      <app-logo/>
-      <h1 class="title">
-        gh-blog
-      </h1>
-      <h2 class="subtitle">
-        GH Blog
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
+    <header>
+      <h2>Issues</h2>
+      <small>count: {{issues.totalCount}}</small>
+    </header>
+    <article
+      class="article"
+      v-for="post in latestIssues"
+      :key="post.url">
+      <header>
+        <h3 class="title">{{post.title}}</h3>
+        <p>{{post.createdAt}}</p>
+      </header>
+      <div class="body">
+        <div class="author">
+          <img :src="post.author.avatarUrl">
+          <p class="author-name">{{post.author.login}}</p>
+        </div>
+        <vue-markdown
+          class="marked"
+          :source="post.body"
+          :anchorAttributes="{
+            target: '_blank',
+            rel: 'noopener'
+          }"/>
       </div>
-    </div>
+    </article>
   </section>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
+import VueMarkdown from 'vue-markdown'
+import gql from 'graphql-tag'
+import getIssues from '~/apollo/queries/getIssues'
 
 export default {
   components: {
-    AppLogo
+    VueMarkdown
+  },
+  data: () => ({
+    issues: {}
+  }),
+  apollo: {
+    issues: {
+      prefetch: true,
+      query: getIssues,
+      variables: {
+        repoOwner: 'nuxt',
+        repoName: 'nuxt.js',
+        fetchIssueCount: 5,
+        fetchCommentCount: 5
+      },
+      update: ({ repository }) => repository.issues
+    }
+  },
+  computed: {
+    latestIssues() {
+      return this.issues.nodes.slice().reverse()
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  margin: 2rem;
 }
-
+.article {
+  margin: 2rem;
+}
 .title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+  font-size: 1.8rem;
+  margin: 0;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+.author {
+  display: grid;
+  grid-template-columns: auto auto;
 }
-
-.links {
-  padding-top: 15px;
+.author img {
+  width: 40px;
+}
+.body {
+  border: 1px solid #eee;
+  padding: 1rem;
 }
 </style>

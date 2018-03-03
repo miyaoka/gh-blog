@@ -1,0 +1,47 @@
+query(
+  $repoOwner: String!
+  $repoName: String!
+  $fetchIssueCount: Int!
+  $fetchCommentCount: Int!
+) {
+  repository(owner: $repoOwner, name: $repoName) {
+    name
+    description
+    issues(first: $fetchIssueCount) {
+      totalCount
+      pageInfo {
+        endCursor
+        hasPreviousPage
+      }
+      nodes {
+        author {
+          avatarUrl
+          login
+          resourcePath
+          url
+        }
+        title
+        body
+        createdAt
+        publishedAt
+        updatedAt
+        url
+        comments(first: $fetchCommentCount) {
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+          nodes {
+            author {
+              avatarUrl
+              login
+              resourcePath
+              url
+            }
+            body
+          }
+        }
+      }
+    }
+  }
+}
