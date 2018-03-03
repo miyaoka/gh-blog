@@ -6,7 +6,7 @@
     </header>
     <article
       class="article"
-      v-for="post in latestIssues"
+      v-for="post in issues.nodes"
       :key="post.url">
       <header>
         <h3 class="title">{{post.title}}</h3>
@@ -53,11 +53,6 @@ export default {
         fetchCommentCount: 5
       },
       update: ({ repository }) => repository.issues
-    }
-  },
-  computed: {
-    latestIssues() {
-      return this.issues.nodes.slice().reverse()
     }
   }
 }
