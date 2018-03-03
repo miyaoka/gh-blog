@@ -7,6 +7,7 @@ module.exports = {
       default: '~/apollo/client-configs/default.js'
     }
   },
+  css: ['~/assets/css/base.scss'],
   /*
   ** Headers of the page
   */

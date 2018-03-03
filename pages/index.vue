@@ -63,26 +63,28 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
-  margin: 2rem;
-}
+<style lang="scss" scoped>
 .article {
-  margin: 2rem;
-}
-.title {
-  font-size: 1.8rem;
-  margin: 0;
-}
-.author {
-  display: grid;
-  grid-template-columns: auto auto;
-}
-.author img {
-  width: 40px;
-}
-.body {
-  border: 1px solid #eee;
+  margin: 2rem 0;
   padding: 1rem;
+  border-radius: 1rem;
+
+  background: #fff;
+
+  .title {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+  .author {
+    display: grid;
+    grid-template-columns: auto auto;
+    img {
+      width: 40px;
+    }
+  }
+  .body {
+    border: 1px solid #eee;
+    padding: 1rem;
+  }
 }
 </style>

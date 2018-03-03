@@ -1,0 +1,127 @@
+@import 'node_modules/modern-normalize/modern-normalize.css';
+
+@font-face {
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Medium');
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Medium');
+  font-weight: 200;
+}
+@font-face {
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Medium');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Medium');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Yu Gothic';
+  src: local('Yu Gothic Bold');
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: local('Helvetica Neue Regular');
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: local('Helvetica Neue Regular');
+  font-weight: 200;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', YuGothic,
+    '游ゴシック Medium', YuGothicM, Verdana, Meiryo, sans-serif;
+}
+@media all and (-ms-high-contrast: none) {
+  body {
+    font-family: Verdana, Meiryo, sans-serif;
+  }
+}
+@media all and (-ms-high-contrast: active) {
+  body {
+    font-family: Verdana, Meiryo, sans-serif;
+  }
+}
+
+body {
+  background: hsl(0, 0%, 95%);
+  font-size: 16px;
+  background: #3fbbd4;
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.6rem;
+}
+h4 {
+  font-size: 1.4rem;
+}
+h5 {
+  font-size: 1.2rem;
+}
+h6 {
+  font-size: 1rem;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: #3fbbd4;
+  text-shadow: 2px 2px 1px #fff, -2px 2px 1px #fff, 2px -2px 1px #fff,
+    -2px -2px 1px #fff;
+}
+
+a {
+  text-decoration: none;
+}
+.body a {
+  color: #3fbbd4;
+  text-shadow: 2px 2px 1px #fff, -2px 2px 1px #fff, 2px -2px 1px #fff,
+    -2px -2px 1px #fff;
+  word-break: break-all;
+}
+
+blockquote {
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  border-left: 4px solid #eee;
+  color: #666;
+}
+
+iframe {
+  max-width: 100%;
+}
+
+.twitter-tweet-rendered {
+  display: inline-block !important;
+}
+
+.marked {
+  word-break: break-word;
+}
+pre {
+  background: #eee;
+  padding: 1rem;
+  overflow: auto;
+  background-color: hsl(0, 0%, 95%);
+}
+code {
+  overflow-x: scroll;
+}

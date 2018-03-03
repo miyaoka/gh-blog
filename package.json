@@ -17,6 +17,7 @@
     "apollo-link-http": "^1.5.2",
     "dotenv": "^5.0.1",
     "graphql-tag": "^2.8.0",
+    "modern-normalize": "^0.4.0",
     "nuxt": "^1.4.0",
     "vue-markdown": "^2.2.4"
   },
@@ -27,6 +28,8 @@
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-vue": "^4.3.0",
-    "graphql": "^0.11.7"
+    "graphql": "^0.11.7",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.7"
   }
 }
