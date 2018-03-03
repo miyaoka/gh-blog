@@ -49,12 +49,34 @@ export default {
       variables: {
         repoOwner: 'nuxt',
         repoName: 'nuxt.js',
-        fetchIssueCount: 5,
-        fetchCommentCount: 5
+        fetchIssueCount: 10
       },
       update: ({ repository }) => repository.issues
     }
   }
+  // methods: {
+  //   showMore() {
+  //     this.page++
+  //     // Fetch more data and transform the original result
+  //     this.$apollo.queries.issues.fetchMore({
+  //       // New variables
+  //       variables: {
+  //         start: this.start
+  //       },
+  //       // Transform the previous result with new data
+  //       updateQuery: (previousResult, { fetchMoreResult }) => {
+  //         const newTags = fetchMoreResult.tagsPage.tags
+  //         const hasMore = fetchMoreResult.tagsPage.hasMore
+
+  //         this.showMoreEnabled = hasMore
+
+  //         return {
+  //           issues: fetchMoreResult
+  //         }
+  //       }
+  //     })
+  //   }
+  // }
 }
 </script>
 
