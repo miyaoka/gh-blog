@@ -115,6 +115,11 @@ iframe {
 
 .marked {
   word-break: break-word;
+
+  img {
+    max-width: 100%;
+    margin: 1rem 0;
+  }
 }
 pre {
   background: #eee;
