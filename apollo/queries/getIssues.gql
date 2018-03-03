@@ -7,7 +7,7 @@ query(
   repository(owner: $repoOwner, name: $repoName) {
     name
     description
-    issues(first: $fetchIssueCount) {
+    issues(last: $fetchIssueCount) {
       totalCount
       pageInfo {
         endCursor
