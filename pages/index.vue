@@ -10,6 +10,7 @@
       :key="post.url">
       <header>
         <h3 class="title">{{post.title}}</h3>
+        <a :href="post.url" target="_blank" rel="noopener">[Issue URL]</a>
         <p>{{post.createdAt}}</p>
       </header>
       <div class="body">
