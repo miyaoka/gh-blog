@@ -2,7 +2,7 @@
 
 > GitHub Issue as Blog
 
-https://mobile.twitter.com/miyaoka/status/970040889513922561
+https://twitter.com/miyaoka/status/970040889513922561
 
 ## Demo
 
