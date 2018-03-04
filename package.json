@@ -15,6 +15,7 @@
   "dependencies": {
     "@nuxtjs/apollo": "^3.0.4",
     "apollo-link-http": "^1.5.2",
+    "axios": "^0.18.0",
     "dotenv": "^5.0.1",
     "graphql-tag": "^2.8.0",
     "modern-normalize": "^0.4.0",
