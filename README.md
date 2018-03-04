@@ -1,12 +1,14 @@
 # gh-blog
 
-https://twitter.com/azu_re/status/969967216136396800
+> GitHub Issue as Blog
 
-> GitHub Issue as Blog 誰か作って
+https://mobile.twitter.com/miyaoka/status/970040889513922561
 
 ## Demo
 
 https://gh-blog.netlify.com/
+
+<img width="600" alt="demo" src="https://user-images.githubusercontent.com/1443118/36947961-c069e93a-2016-11e8-9991-7e5605d071b0.png">
 
 ## Usage
 
