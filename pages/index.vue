@@ -4,8 +4,8 @@
       <h2>Issues</h2>
       <small>count: {{issues.totalCount}}</small>
     </header>
-    <input v-model="repoOwner"> / <input v-model="repoName">
-    <button @click="() => fetchIssue()">change repo</button>
+    <input v-model="inputRepoOwner"> / <input v-model="inputRepoName">
+    <button @click="changeRepo">change repo</button>
 
     <div>
       page: <button
@@ -43,8 +43,7 @@
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown'
-import gql from 'graphql-tag'
+import { mapState, mapMutations } from 'vuex'
 import getIssues from '~/apollo/queries/getIssues'
 import getPrevIssues from '~/apollo/queries/getPrevIssues'
 
@@ -54,19 +53,22 @@ export default {
   },
   data() {
     return {
-      hasPreviousPage: false
+      inputRepoOwner: '',
+      inputRepoName: ''
     }
   },
-  async asyncData({ app }) {
-    const repoOwner = 'miyaoka'
-    const repoName = 'gh-blog'
+  created() {
+    this.inputRepoOwner = this.repoOwner
+    this.inputRepoName = this.repoName
+  },
+  async asyncData({ app, store }) {
     const fetchIssueCount = 5
 
     const { data } = await app.apolloProvider.defaultClient.query({
       query: getIssues,
       variables: {
-        repoOwner,
-        repoName,
+        repoOwner: store.state.repoOwner,
+        repoName: store.state.repoName,
         fetchIssueCount
       }
     })
@@ -75,17 +77,24 @@ export default {
 
     return {
       issues,
-      repoOwner,
-      repoName,
       fetchIssueCount
     }
   },
+  computed: {
+    ...mapState(['repoOwner', 'repoName'])
+  },
   methods: {
+    ...mapMutations(['setRepoOwner', 'setRepoName']),
     fetchPrev() {
       this.fetchIssue({ startCursor: this.issues.pageInfo.startCursor })
     },
     fetchNext() {
       this.fetchIssue({ endCursor: this.issues.pageInfo.endCursor })
+    },
+    changeRepo() {
+      this.setRepoOwner(this.inputRepoOwner)
+      this.setRepoName(this.inputRepoName)
+      this.fetchIssue()
     },
     async fetchIssue(variables) {
       const { data } = await this.$apollo.getClient().query({
