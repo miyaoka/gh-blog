@@ -58,8 +58,8 @@ export default {
     }
   },
   async asyncData({ app }) {
-    const repoOwner = 'nuxt'
-    const repoName = 'nuxt.js'
+    const repoOwner = 'miyaoka'
+    const repoName = 'gh-blog'
     const fetchIssueCount = 5
 
     const { data } = await app.apolloProvider.defaultClient.query({
