@@ -1,7 +1,10 @@
 require('dotenv').config()
 
 module.exports = {
-  modules: ['@nuxtjs/apollo'],
+  modules: [
+    '@nuxtjs/apollo',
+    ['@nuxtjs/google-analytics', { id: 'UA-3536169-21' }]
+  ],
   apollo: {
     clientConfigs: {
       default: '~/apollo/client-configs/default.js'
