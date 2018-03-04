@@ -28,7 +28,7 @@
     </div>
     <div v-if="isDev">
       <button @click="isEditing = !isEditing">{{isEditing ? '戻る' : '編集'}}</button>
-      <div v-if="isEditing && post.body !== editBody" @click="isEditing = false">
+      <div v-if="post.body !== editBody" @click="isEditing = false">
         <button @click="initBody">discard</button>
         <button @click="save">save</button>
       </div>
@@ -38,6 +38,8 @@
 
 <script>
 import VueMarkdown from 'vue-markdown'
+import client from '~/plugins/github-api-v3'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -56,12 +58,25 @@ export default {
   created() {
     this.initBody()
   },
+  computed: {
+    ...mapState(['repoOwner', 'repoName'])
+  },
   methods: {
     initBody() {
       this.editBody = this.post.body
     },
     async save() {
       try {
+        const res = await client.patch(
+          `/repos/${this.repoOwner}/${this.repoName}/issues/${
+            this.post.number
+          }`,
+          {
+            body: this.editBody
+          }
+        )
+        const newPost = { ...this.post, body: this.editBody }
+        this.$emit('update:post', newPost)
       } catch (err) {
         console.log(err)
       }

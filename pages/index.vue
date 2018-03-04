@@ -17,9 +17,10 @@
     </div>
 
     <entry-item
-      v-for="post in issues.nodes"
-      :key="post.url"
-      :post="post"/>
+      v-for="(post, i) in issues.nodes"
+      :key="post.id"
+      :post="post"
+      @update:post="(val) => issues.nodes.splice(i, 1, val)"/>
   </section>
 </template>
 
