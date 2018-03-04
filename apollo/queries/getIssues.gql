@@ -2,7 +2,6 @@ query getIssues(
   $repoOwner: String!
   $repoName: String!
   $fetchIssueCount: Int = 5
-  $fetchCommentCount: Int = 5
   $endCursor: String
 ) {
   repository(owner: $repoOwner, name: $repoName) {
@@ -27,27 +26,13 @@ query getIssues(
           resourcePath
           url
         }
+        id
+        number
         title
         body
         createdAt
-        publishedAt
         updatedAt
         url
-        comments(first: $fetchCommentCount) {
-          pageInfo {
-            endCursor
-            hasNextPage
-          }
-          nodes {
-            author {
-              avatarUrl
-              login
-              resourcePath
-              url
-            }
-            body
-          }
-        }
       }
     }
   }
