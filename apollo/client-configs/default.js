@@ -7,7 +7,7 @@ export default (ctx) => {
 
   // middleware
   const middlewareLink = new ApolloLink((operation, forward) => {
-    const token = process.env.GH_TOKEN
+    const token = ctx.env.GH_TOKEN
 
     operation.setContext({
       headers: { authorization: `Bearer ${token}` }

@@ -8,6 +8,9 @@ module.exports = {
     }
   },
   css: ['~/assets/css/base.scss'],
+  env: {
+    GH_TOKEN: process.env.GH_TOKEN
+  },
   /*
   ** Headers of the page
   */
