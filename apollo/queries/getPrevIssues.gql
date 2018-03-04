@@ -1,17 +1,17 @@
-query getIssues(
+query getPrevIssues(
   $repoOwner: String!
   $repoName: String!
   $fetchIssueCount: Int = 5
   $fetchCommentCount: Int = 5
-  $endCursor: String
+  $startCursor: String
 ) {
   repository(owner: $repoOwner, name: $repoName) {
     name
     description
     issues(
       orderBy: { field: CREATED_AT, direction: DESC }
-      first: $fetchIssueCount
-      after: $endCursor
+      last: $fetchIssueCount
+      before: $startCursor
     ) {
       totalCount
       pageInfo {

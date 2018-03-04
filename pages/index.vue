@@ -4,6 +4,18 @@
       <h2>Issues</h2>
       <small>count: {{issues.totalCount}}</small>
     </header>
+    <input v-model="repoOwner"> / <input v-model="repoName">
+    <button @click="() => fetchIssue()">change repo</button>
+
+    <div>
+      page: <button
+        v-if="issues.pageInfo.hasPreviousPage"
+        @click="fetchPrev">« newer</button>
+      <button
+        v-if="issues.pageInfo.hasNextPage"
+        @click="fetchNext">older »</button>
+    </div>
+
     <article
       class="article"
       v-for="post in issues.nodes"
@@ -34,49 +46,61 @@
 import VueMarkdown from 'vue-markdown'
 import gql from 'graphql-tag'
 import getIssues from '~/apollo/queries/getIssues'
+import getPrevIssues from '~/apollo/queries/getPrevIssues'
 
 export default {
   components: {
     VueMarkdown
   },
-  data: () => ({
-    issues: {}
-  }),
-  apollo: {
-    issues: {
-      prefetch: true,
+  data() {
+    return {
+      hasPreviousPage: false
+    }
+  },
+  async asyncData({ app }) {
+    const repoOwner = 'nuxt'
+    const repoName = 'nuxt.js'
+    const fetchIssueCount = 5
+
+    const { data } = await app.apolloProvider.defaultClient.query({
       query: getIssues,
       variables: {
-        repoOwner: 'nuxt',
-        repoName: 'nuxt.js',
-        fetchIssueCount: 10
-      },
-      update: ({ repository }) => repository.issues
+        repoOwner,
+        repoName,
+        fetchIssueCount
+      }
+    })
+
+    const issues = data.repository.issues
+
+    return {
+      issues,
+      repoOwner,
+      repoName,
+      fetchIssueCount
+    }
+  },
+  methods: {
+    fetchPrev() {
+      this.fetchIssue({ startCursor: this.issues.pageInfo.startCursor })
+    },
+    fetchNext() {
+      this.fetchIssue({ endCursor: this.issues.pageInfo.endCursor })
+    },
+    async fetchIssue(variables) {
+      const { data } = await this.$apollo.getClient().query({
+        query: variables && variables.startCursor ? getPrevIssues : getIssues,
+        variables: {
+          ...variables,
+          repoOwner: this.repoOwner,
+          repoName: this.repoName,
+          fetchIssueCount: this.fetchIssueCount
+        }
+      })
+
+      this.issues = data.repository.issues
     }
   }
-  // methods: {
-  //   showMore() {
-  //     this.page++
-  //     // Fetch more data and transform the original result
-  //     this.$apollo.queries.issues.fetchMore({
-  //       // New variables
-  //       variables: {
-  //         start: this.start
-  //       },
-  //       // Transform the previous result with new data
-  //       updateQuery: (previousResult, { fetchMoreResult }) => {
-  //         const newTags = fetchMoreResult.tagsPage.tags
-  //         const hasMore = fetchMoreResult.tagsPage.hasMore
-
-  //         this.showMoreEnabled = hasMore
-
-  //         return {
-  //           issues: fetchMoreResult
-  //         }
-  //       }
-  //     })
-  //   }
-  // }
 }
 </script>
 
