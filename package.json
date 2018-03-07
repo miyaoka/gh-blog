@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@nuxtjs/apollo": "^3.0.4",
+    "@nuxtjs/axios": "^5.1.1",
     "@nuxtjs/google-analytics": "^2.0.2",
     "apollo-link-http": "^1.5.2",
-    "axios": "^0.18.0",
     "dotenv": "^5.0.1",
     "graphql-tag": "^2.8.0",
     "modern-normalize": "^0.4.0",

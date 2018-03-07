@@ -14,7 +14,6 @@ export const mutations = {
 
 export const actions = {
   nuxtServerInit({ commit }, { env }) {
-    console.log(env)
     commit('setRepoOwner', env.GH_REPO_OWNER)
     commit('setRepoName', env.GH_REPO_NAME)
   }

@@ -38,7 +38,6 @@
 
 <script>
 import VueMarkdown from 'vue-markdown'
-import client from '~/plugins/github-api-v3'
 import { mapState } from 'vuex'
 
 export default {
@@ -67,7 +66,7 @@ export default {
     },
     async save() {
       try {
-        const res = await client.patch(
+        const res = await this.$ghApiV3.patch(
           `/repos/${this.repoOwner}/${this.repoName}/issues/${
             this.post.number
           }`,

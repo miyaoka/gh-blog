@@ -5,6 +5,7 @@ module.exports = {
     '@nuxtjs/apollo',
     ['@nuxtjs/google-analytics', { id: 'UA-3536169-21' }]
   ],
+  plugins: ['~/plugins/github-api-v3.js'],
   apollo: {
     clientConfigs: {
       default: '~/apollo/client-configs/default.js'
