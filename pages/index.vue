@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import VueNotifications from 'vue-notifications'
 import { mapState, mapMutations } from 'vuex'
 import getIssues from '~/apollo/queries/getIssues'
 import getPrevIssues from '~/apollo/queries/getPrevIssues'
@@ -68,17 +69,27 @@ export default {
       this.fetchIssue()
     },
     async fetchIssue(variables) {
-      const { data } = await this.$apollo.getClient().query({
-        query: variables && variables.startCursor ? getPrevIssues : getIssues,
-        variables: {
-          ...variables,
-          repoOwner: this.repoOwner,
-          repoName: this.repoName,
-          fetchIssuePerPage: this.fetchIssuePerPage
-        }
-      })
-
-      this.setIssues(data.repository.issues)
+      try {
+        const { data } = await this.$apollo.getClient().query({
+          query: variables && variables.startCursor ? getPrevIssues : getIssues,
+          variables: {
+            ...variables,
+            repoOwner: this.repoOwner,
+            repoName: this.repoName,
+            fetchIssuePerPage: this.fetchIssuePerPage
+          }
+        })
+        this.setIssues(data.repository.issues)
+      } catch (err) {
+        console.error(err)
+        this.showErrorMsg({ message: err.message, timeout: 7000 })
+      }
+    }
+  },
+  notifications: {
+    showErrorMsg: {
+      type: VueNotifications.types.error,
+      title: 'Error'
     }
   }
 }
