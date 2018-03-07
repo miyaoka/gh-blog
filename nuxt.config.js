@@ -12,7 +12,9 @@ module.exports = {
   },
   css: ['~/assets/css/base.scss'],
   env: {
-    GH_TOKEN: process.env.GH_TOKEN
+    GH_TOKEN: process.env.GH_TOKEN,
+    GH_REPO_OWNER: process.env.GH_REPO_OWNER,
+    GH_REPO_NAME: process.env.GH_REPO_NAME
   },
   /*
   ** Headers of the page
