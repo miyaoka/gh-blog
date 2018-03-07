@@ -5,7 +5,10 @@ module.exports = {
     '@nuxtjs/apollo',
     ['@nuxtjs/google-analytics', { id: 'UA-3536169-21' }]
   ],
-  plugins: ['~/plugins/github-api-v3.js'],
+  plugins: [
+    '~/plugins/github-api-v3.js',
+    { src: '~/plugins/vue-notifications', ssr: false }
+  ],
   apollo: {
     clientConfigs: {
       default: '~/apollo/client-configs/default.js'
@@ -37,7 +40,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['axios'],
+    vendor: ['vue-notifications'],
     /*
     ** Run ESLint on save
     */

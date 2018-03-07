@@ -20,8 +20,10 @@
     "dotenv": "^5.0.1",
     "graphql-tag": "^2.8.0",
     "modern-normalize": "^0.4.0",
+    "noty": "^3.2.0-beta",
     "nuxt": "^1.4.0",
-    "vue-markdown": "^2.2.4"
+    "vue-markdown": "^2.2.4",
+    "vue-notifications": "^0.9.0"
   },
   "devDependencies": {
     "ajv": "^6.2.0",

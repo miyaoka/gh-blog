@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import VueNotifications from 'vue-notifications'
 import VueMarkdown from 'vue-markdown'
 import { mapState } from 'vuex'
 
@@ -74,11 +75,35 @@ export default {
             body: this.editBody
           }
         )
+        this.showSuccessMsg({ message: 'Saved.', timeout: 1000 })
         const newPost = { ...this.post, body: this.editBody }
         this.$emit('update:post', newPost)
       } catch (err) {
+        this.showErrorMsg({ message: err.message, timeout: 7000 })
         console.log(err)
       }
+    }
+  },
+  notifications: {
+    showSuccessMsg: {
+      type: VueNotifications.types.success,
+      title: 'Success',
+      message: ''
+    },
+    showInfoMsg: {
+      type: VueNotifications.types.info,
+      title: 'Info',
+      message: ''
+    },
+    showWarnMsg: {
+      type: VueNotifications.types.warn,
+      title: 'Warning',
+      message: ''
+    },
+    showErrorMsg: {
+      type: VueNotifications.types.error,
+      title: 'Error',
+      message: ''
     }
   }
 }
