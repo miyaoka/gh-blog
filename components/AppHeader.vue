@@ -17,7 +17,7 @@ header {
   text-align: center;
   padding: 1rem 1rem 2rem;
   margin-bottom: 2rem;
-  background: url('/img/github-blog.png') center center #fff8e9 no-repeat;
+  background: url('/img/github-blog.png') center center #f9e4b7 no-repeat;
   height: 240px;
   transition: 0.2s ease-out;
 

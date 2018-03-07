@@ -37,15 +37,6 @@ export default {
 @import '~assets/css/mixin/_mediaquery.scss';
 $footer-height: 120px;
 
-.app::before {
-  content: '';
-  position: fixed;
-  background: linear-gradient(40deg, #fbfefd 0%, #3fbbd5 50%, #fafab4 100%);
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-  background: #b5e2e7;
-}
 .content-wrapper {
   min-height: calc(100vh- #{$footer-height});
   padding-bottom: 3rem;
