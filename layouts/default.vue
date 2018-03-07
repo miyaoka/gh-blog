@@ -44,6 +44,7 @@ $footer-height: 120px;
   width: 100%;
   height: 100vh;
   z-index: -1;
+  background: #b5e2e7;
 }
 .content-wrapper {
   min-height: calc(100vh- #{$footer-height});
@@ -53,6 +54,8 @@ $footer-height: 120px;
   max-width: 960px;
   margin: auto;
   padding: 0 1rem;
+
+  transition: 0.2s ease-out;
 
   @include mq(tb) {
     max-width: 560px;
