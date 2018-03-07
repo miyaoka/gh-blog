@@ -1,7 +1,7 @@
 query getIssues(
   $repoOwner: String!
   $repoName: String!
-  $fetchIssueCount: Int = 5
+  $fetchIssuePerPage: Int = 5
   $endCursor: String
 ) {
   repository(owner: $repoOwner, name: $repoName) {
@@ -9,7 +9,7 @@ query getIssues(
     description
     issues(
       orderBy: { field: CREATED_AT, direction: DESC }
-      first: $fetchIssueCount
+      first: $fetchIssuePerPage
       after: $endCursor
     ) {
       totalCount

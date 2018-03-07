@@ -2,25 +2,25 @@
   <section class="container">
     <header>
       <h2>Issues</h2>
-      <small>count: {{issues.totalCount}}</small>
+      <small>count: {{totalCount}}</small>
     </header>
     <input v-model="inputRepoOwner"> / <input v-model="inputRepoName">
     <button @click="changeRepo">change repo</button>
 
     <div>
       page: <button
-        v-if="issues.pageInfo.hasPreviousPage"
+        v-if="pageInfo.hasPreviousPage"
         @click="fetchPrev">« newer</button>
       <button
-        v-if="issues.pageInfo.hasNextPage"
+        v-if="pageInfo.hasNextPage"
         @click="fetchNext">older »</button>
     </div>
 
     <entry-item
-      v-for="(post, i) in issues.nodes"
+      v-for="post in nodes"
       :key="post.id"
       :post="post"
-      @update:post="(val) => issues.nodes.splice(i, 1, val)"/>
+    />
   </section>
 </template>
 
@@ -44,30 +44,18 @@ export default {
     this.inputRepoOwner = this.repoOwner
     this.inputRepoName = this.repoName
   },
-  async asyncData({ app, store }) {
-    const fetchIssueCount = 5
-
-    const { data } = await app.apolloProvider.defaultClient.query({
-      query: getIssues,
-      variables: {
-        repoOwner: store.state.repoOwner,
-        repoName: store.state.repoName,
-        fetchIssueCount
-      }
-    })
-
-    const issues = data.repository.issues
-
-    return {
-      issues,
-      fetchIssueCount
-    }
-  },
   computed: {
-    ...mapState(['repoOwner', 'repoName'])
+    ...mapState([
+      'repoOwner',
+      'repoName',
+      'fetchIssuePerPage',
+      'totalCount',
+      'nodes',
+      'pageInfo'
+    ])
   },
   methods: {
-    ...mapMutations(['setRepoOwner', 'setRepoName']),
+    ...mapMutations(['setRepoOwner', 'setRepoName', 'setIssues']),
     fetchPrev() {
       this.fetchIssue({ startCursor: this.issues.pageInfo.startCursor })
     },
@@ -86,11 +74,11 @@ export default {
           ...variables,
           repoOwner: this.repoOwner,
           repoName: this.repoName,
-          fetchIssueCount: this.fetchIssueCount
+          fetchIssuePerPage: this.fetchIssuePerPage
         }
       })
 
-      this.issues = data.repository.issues
+      this.setIssues(data.repository.issues)
     }
   }
 }

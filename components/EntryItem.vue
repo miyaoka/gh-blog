@@ -48,7 +48,7 @@
 <script>
 import VueNotifications from 'vue-notifications'
 import VueMarkdown from 'vue-markdown'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -76,6 +76,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['updateNode']),
     initBody() {
       this.previewBody = this.editorBody = this.post.body
     },
@@ -98,11 +99,11 @@ export default {
           }
         )
         this.showSuccessMsg({ message: 'Saved.', timeout: 1000 })
-        this.$emit('update:post', { ...this.post, body: this.editorBody })
+        this.updateNode({ ...this.post, body: this.editorBody })
         this.isEditing = false
       } catch (err) {
         this.showErrorMsg({ message: err.message, timeout: 7000 })
-        console.log(err)
+        console.error(err)
       } finally {
         this.isCommiting = false
       }

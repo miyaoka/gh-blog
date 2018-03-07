@@ -1,6 +1,12 @@
-export const state = () => ({
+import getIssues from '~/apollo/queries/getIssues'
+
+export const state = (a) => ({
   repoOwner: '',
-  repoName: ''
+  repoName: '',
+  fetchIssuePerPage: 5,
+  totalCount: 0,
+  nodes: [],
+  pageInfo: {}
 })
 
 export const mutations = {
@@ -9,12 +15,44 @@ export const mutations = {
   },
   setRepoName(state, repoName) {
     state.repoName = repoName
+  },
+  setIssues(state, { totalCount, nodes, pageInfo }) {
+    state.totalCount = totalCount
+    state.nodes = nodes
+    state.pageInfo = pageInfo
+  },
+  updateNode(state, node) {
+    const i = state.nodes.findIndex((n) => n.id === node.id)
+    if (i >= 0) {
+      state.nodes = [
+        ...state.nodes.slice(0, i),
+        node,
+        ...state.nodes.slice(i + 1)
+      ]
+    }
   }
 }
 
 export const actions = {
-  nuxtServerInit({ commit }, { env }) {
-    commit('setRepoOwner', env.GH_REPO_OWNER)
-    commit('setRepoName', env.GH_REPO_NAME)
+  async nuxtServerInit({ commit, state }, { app, env }) {
+    const repoOwner = env.GH_REPO_OWNER
+    const repoName = env.GH_REPO_NAME
+
+    commit('setRepoOwner', repoOwner)
+    commit('setRepoName', repoName)
+
+    try {
+      const { data } = await app.apolloProvider.defaultClient.query({
+        query: getIssues,
+        variables: {
+          repoOwner: repoOwner,
+          repoName: repoName,
+          fetchIssuePerPage: state.fetchIssuePerPage
+        }
+      })
+      commit('setIssues', data.repository.issues)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
