@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import VueNotifications from 'vue-notifications'
 import { mapState, mapMutations } from 'vuex'
 import getIssues from '~/apollo/queries/getIssues'
 import getPrevIssues from '~/apollo/queries/getPrevIssues'
@@ -82,14 +81,8 @@ export default {
         this.setIssues(data.repository.issues)
       } catch (err) {
         console.error(err)
-        this.showErrorMsg({ message: err.message, timeout: 7000 })
+        this.showErrorMsg({ message: err.message })
       }
-    }
-  },
-  notifications: {
-    showErrorMsg: {
-      type: VueNotifications.types.error,
-      title: 'Error'
     }
   }
 }

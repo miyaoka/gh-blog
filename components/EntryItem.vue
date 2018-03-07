@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import VueNotifications from 'vue-notifications'
 import VueMarkdown from 'vue-markdown'
 import { mapState, mapMutations } from 'vuex'
 
@@ -98,11 +97,11 @@ export default {
             body: this.editorBody
           }
         )
-        this.showSuccessMsg({ message: 'Saved.', timeout: 1000 })
+        this.showSuccessMsg({ message: 'Saved.' })
         this.updateNode({ ...this.post, body: this.editorBody })
         this.isEditing = false
       } catch (err) {
-        this.showErrorMsg({ message: err.message, timeout: 7000 })
+        this.showErrorMsg({ message: err.message })
         console.error(err)
       } finally {
         this.isCommiting = false
@@ -114,28 +113,6 @@ export default {
       if (!val) {
         this.previewBody = this.editorBody
       }
-    }
-  },
-  notifications: {
-    showSuccessMsg: {
-      type: VueNotifications.types.success,
-      title: 'Success',
-      message: ''
-    },
-    showInfoMsg: {
-      type: VueNotifications.types.info,
-      title: 'Info',
-      message: ''
-    },
-    showWarnMsg: {
-      type: VueNotifications.types.warn,
-      title: 'Warning',
-      message: ''
-    },
-    showErrorMsg: {
-      type: VueNotifications.types.error,
-      title: 'Error',
-      message: ''
     }
   }
 }
