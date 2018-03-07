@@ -12,25 +12,34 @@
     <div class="body">
       <vue-markdown
         class="marked"
-        :source="editBody"
+        :source="previewBody"
         :anchorAttributes="{
           target: '_blank',
           rel: 'noopener'
         }"/>
+      <transition name="fade">
       <div
-        v-if="isDev && isEditing"
+        v-if="isEditing"
         class="edit"
         >
         <textarea
-          v-model="editBody"
-          ref="editbody"/>
+          v-model="editorBody"
+          :disabled="isCommiting"
+        />
       </div>
+      </transition>
     </div>
     <div v-if="isDev">
-      <button @click="isEditing = !isEditing">{{isEditing ? '戻る' : '編集'}}</button>
-      <div v-if="post.body !== editBody" @click="isEditing = false">
-        <button @click="initBody">discard</button>
-        <button @click="save">save</button>
+      <button @click="toggleEdit">{{isEditing ? 'プレビュー' : '編集'}}</button>
+      <div v-if="hasDiff">
+        <button
+          @click="discardEdit"
+          :disabled="isCommiting"
+          >キャンセル</button>
+        <button
+          @click="saveEdit"
+          :disabled="isCommiting"
+          >保存</button>
       </div>
     </div>
   </article>
@@ -50,7 +59,9 @@ export default {
   },
   data() {
     return {
-      editBody: '',
+      previewBody: '',
+      editorBody: '',
+      isCommiting: false,
       isEditing: false,
       isDev: process.env.NODE_ENV === 'development'
     }
@@ -59,28 +70,48 @@ export default {
     this.initBody()
   },
   computed: {
-    ...mapState(['repoOwner', 'repoName'])
+    ...mapState(['repoOwner', 'repoName']),
+    hasDiff() {
+      return this.post.body !== this.editorBody
+    }
   },
   methods: {
     initBody() {
-      this.editBody = this.post.body
+      this.previewBody = this.editorBody = this.post.body
     },
-    async save() {
+    toggleEdit() {
+      this.isEditing = !this.isEditing
+    },
+    discardEdit() {
+      this.initBody()
+      this.isEditing = false
+    },
+    async saveEdit() {
+      this.isCommiting = true
       try {
         const res = await this.$ghApiV3.patch(
           `/repos/${this.repoOwner}/${this.repoName}/issues/${
             this.post.number
           }`,
           {
-            body: this.editBody
+            body: this.editorBody
           }
         )
         this.showSuccessMsg({ message: 'Saved.', timeout: 1000 })
-        const newPost = { ...this.post, body: this.editBody }
-        this.$emit('update:post', newPost)
+        this.$emit('update:post', { ...this.post, body: this.editorBody })
+        this.isEditing = false
       } catch (err) {
         this.showErrorMsg({ message: err.message, timeout: 7000 })
         console.log(err)
+      } finally {
+        this.isCommiting = false
+      }
+    }
+  },
+  watch: {
+    isEditing(val) {
+      if (!val) {
+        this.previewBody = this.editorBody
       }
     }
   },
@@ -153,9 +184,20 @@ $date-pad: 6px;
     bottom: 0;
 
     textarea {
+      background: hsla(0, 0%, 0%, 0.9);
+      color: hsla(0, 0%, 100%, 0.9);
       width: 100%;
       height: 100%;
     }
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.2s ease-out;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
 }
 </style>
