@@ -7,27 +7,30 @@
     <input v-model="inputRepoOwner"> / <input v-model="inputRepoName">
     <button @click="changeRepo">change repo</button>
 
-    <div>
-      page: <button
-        v-if="pageInfo.hasPreviousPage"
-        @click="fetchPrev">« newer</button>
-      <button
-        v-if="pageInfo.hasNextPage"
-        @click="fetchNext">older »</button>
-    </div>
-
     <entry-item
       v-for="post in nodes"
       :key="post.id"
       :post="post"
     />
+    <no-ssr>
+      <infinite-loading @infinite="loadMore" ref="infiniteLoading">
+        <span slot="no-results">
+          no more articles
+        </span>
+        <span slot="no-more">
+          no more articles
+        </span>
+      </infinite-loading>
+    </no-ssr>
+    <div class="page">
+      {{nodes.length}} / {{totalCount}}
+    </div>
   </section>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 import getIssues from '~/apollo/queries/getIssues'
-import getPrevIssues from '~/apollo/queries/getPrevIssues'
 import EntryItem from '~/components/EntryItem.vue'
 
 export default {
@@ -44,6 +47,12 @@ export default {
     this.inputRepoOwner = this.repoOwner
     this.inputRepoName = this.repoName
   },
+  watch: {
+    repoParams() {
+      this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
+      this.initShowCounts()
+    }
+  },
   computed: {
     ...mapState([
       'repoOwner',
@@ -52,33 +61,35 @@ export default {
       'totalCount',
       'nodes',
       'pageInfo'
-    ])
+    ]),
+    repoParams() {
+      return ['repoOwner', 'repoName'].join()
+    }
   },
   methods: {
     ...mapMutations(['setRepoOwner', 'setRepoName', 'setIssues']),
-    fetchPrev() {
-      this.fetchIssue({ startCursor: this.issues.pageInfo.startCursor })
-    },
-    fetchNext() {
-      this.fetchIssue({ endCursor: this.issues.pageInfo.endCursor })
+    async loadMore($state) {
+      await this.fetchIssue(this.pageInfo.endCursor)
+
+      this.pageInfo.hasNextPage ? $state.loaded() : $state.complete()
     },
     changeRepo() {
       this.setRepoOwner(this.inputRepoOwner)
       this.setRepoName(this.inputRepoName)
       this.fetchIssue()
     },
-    async fetchIssue(variables) {
+    async fetchIssue(endCursor) {
       try {
         const { data } = await this.$apollo.getClient().query({
-          query: variables && variables.startCursor ? getPrevIssues : getIssues,
+          query: getIssues,
           variables: {
-            ...variables,
+            endCursor,
             repoOwner: this.repoOwner,
             repoName: this.repoName,
             fetchIssuePerPage: this.fetchIssuePerPage
           }
         })
-        this.setIssues(data.repository.issues)
+        this.setIssues({ ...data.repository.issues, append: !!endCursor })
       } catch (err) {
         console.error(err)
         this.showErrorMsg({ message: err.message })

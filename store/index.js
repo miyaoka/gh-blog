@@ -3,7 +3,7 @@ import getIssues from '~/apollo/queries/getIssues'
 export const state = (a) => ({
   repoOwner: '',
   repoName: '',
-  fetchIssuePerPage: 5,
+  fetchIssuePerPage: 20,
   totalCount: 0,
   nodes: [],
   pageInfo: {}
@@ -16,9 +16,9 @@ export const mutations = {
   setRepoName(state, repoName) {
     state.repoName = repoName
   },
-  setIssues(state, { totalCount, nodes, pageInfo }) {
+  setIssues(state, { totalCount, nodes, pageInfo, append }) {
     state.totalCount = totalCount
-    state.nodes = nodes
+    state.nodes = append ? [...state.nodes, ...nodes] : nodes
     state.pageInfo = pageInfo
   },
   updateNode(state, node) {
