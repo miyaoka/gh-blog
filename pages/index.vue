@@ -47,12 +47,6 @@ export default {
     this.inputRepoOwner = this.repoOwner
     this.inputRepoName = this.repoName
   },
-  watch: {
-    repoParams() {
-      this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
-      this.initShowCounts()
-    }
-  },
   computed: {
     ...mapState([
       'repoOwner',
@@ -61,10 +55,7 @@ export default {
       'totalCount',
       'nodes',
       'pageInfo'
-    ]),
-    repoParams() {
-      return ['repoOwner', 'repoName'].join()
-    }
+    ])
   },
   methods: {
     ...mapMutations(['setRepoOwner', 'setRepoName', 'setIssues']),
@@ -74,6 +65,8 @@ export default {
       this.pageInfo.hasNextPage ? $state.loaded() : $state.complete()
     },
     changeRepo() {
+      this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
+
       this.setRepoOwner(this.inputRepoOwner)
       this.setRepoName(this.inputRepoName)
       this.fetchIssue()
