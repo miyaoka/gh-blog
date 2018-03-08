@@ -40,7 +40,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['vue-notifications'],
+    vendor: ['vue-notifications', 'luxon'],
     /*
     ** Run ESLint on save
     */

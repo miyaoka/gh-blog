@@ -19,6 +19,7 @@
     "apollo-link-http": "^1.5.2",
     "dotenv": "^5.0.1",
     "graphql-tag": "^2.8.0",
+    "luxon": "^0.5.3",
     "modern-normalize": "^0.4.0",
     "noty": "^3.2.0-beta",
     "nuxt": "^1.4.0",

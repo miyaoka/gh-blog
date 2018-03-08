@@ -3,7 +3,7 @@
     <header>
       <h3 class="title">{{post.title}}</h3>
       <a :href="post.url" target="_blank" rel="noopener">[Issue URL]</a>
-      <p>{{post.createdAt}}</p>
+      <p>{{post.createdAt | date}}</p>
       <div class="author">
         <img :src="post.author.avatarUrl">
         <p class="author-name">{{post.author.login}}</p>
@@ -48,10 +48,18 @@
 <script>
 import VueMarkdown from 'vue-markdown'
 import { mapState, mapMutations } from 'vuex'
+import { DateTime } from 'luxon'
 
 export default {
   components: {
     VueMarkdown
+  },
+  filters: {
+    date(time) {
+      return DateTime.fromISO(time, { zone: 'Asia/Tokyo' }).toFormat(
+        'yyyy/MM/dd hh:mm:ss'
+      )
+    }
   },
   props: {
     post: { type: Object }
