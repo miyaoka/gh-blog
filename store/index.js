@@ -35,7 +35,6 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit({ commit, state }, { app, env }) {
-    console.log(env)
     const repoOwner = env.GH_REPO_OWNER
     const repoName = env.GH_REPO_NAME
 

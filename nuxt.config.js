@@ -6,7 +6,8 @@ module.exports = {
   plugins: [
     '~/plugins/github-api-v3.js',
     { src: '~/plugins/vue-notifications', ssr: false },
-    '~/plugins/infinite-loading.js'
+    '~/plugins/infinite-loading.js',
+    '~/plugins/prism.js'
   ],
   apollo: {
     clientConfigs: {

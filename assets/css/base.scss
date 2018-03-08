@@ -1,4 +1,5 @@
 @import 'node_modules/modern-normalize/modern-normalize.css';
+@import 'node_modules/prismjs/themes/prism.css';
 
 @font-face {
   font-family: 'Yu Gothic';
@@ -123,11 +124,16 @@ iframe {
   }
 }
 pre {
-  background: #eee;
   padding: 1rem;
   overflow: auto;
-  background-color: hsl(0, 0%, 95%);
+  background: #f5f2f0;
+  border-radius: 0.3rem;
 }
 code {
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  margin: 0.3rem;
   overflow-x: scroll;
+  background: #f5f2f0;
+  color: black;
 }
