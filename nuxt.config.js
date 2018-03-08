@@ -17,7 +17,8 @@ module.exports = {
   },
   css: ['~/assets/css/base.scss'],
   env: {
-    GH_TOKEN: process.env.GH_TOKEN,
+    GH_QUERY_TOKEN: process.env.GH_QUERY_TOKEN,
+    GH_MUTATION_TOKEN: process.env.GH_MUTATION_TOKEN,
     GH_REPO_OWNER: process.env.GH_REPO_OWNER,
     GH_REPO_NAME: process.env.GH_REPO_NAME
   },
