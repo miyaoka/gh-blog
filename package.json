@@ -17,7 +17,6 @@
     "@nuxtjs/axios": "^5.1.1",
     "@nuxtjs/google-analytics": "^2.0.2",
     "apollo-link-http": "^1.5.2",
-    "dotenv": "^5.0.1",
     "graphql-tag": "^2.8.0",
     "luxon": "^0.5.3",
     "modern-normalize": "^0.4.0",
