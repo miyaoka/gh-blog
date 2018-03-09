@@ -92,6 +92,21 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import '~assets/css/_vars.scss';
 
+.infinite-loading-container .loading-default {
+  border-color: $clr-w !important;
+  &:before {
+    background-color: $clr-w !important;
+  }
+}
+</style>
+<style lang="scss" scoped>
+@import '~assets/css/_vars.scss';
+
+.page {
+  text-align: center;
+  color: $clr-w;
+}
 </style>

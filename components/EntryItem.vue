@@ -154,7 +154,7 @@ $bubble-bg-clr: $clr-w-ll;
 $bubble-arrow-size: 25px;
 
 .article {
-  margin: 2rem 0;
+  margin: 4rem 0;
   display: grid;
   grid-template-columns: 150px 650px;
   width: 600px;
@@ -172,6 +172,7 @@ $bubble-arrow-size: 25px;
   grid-template-rows: auto;
   justify-items: center;
   grid-gap: 0.5rem;
+  color: $clr-w;
 
   .icon {
     width: 100px;
@@ -179,7 +180,7 @@ $bubble-arrow-size: 25px;
     overflow: hidden;
     position: relative;
     border-radius: 50%;
-    border: 5px solid $clr-1;
+    border: 5px solid $clr-w-d;
     background: #fff;
   }
   img {
@@ -263,6 +264,8 @@ $bubble-arrow-size: 25px;
   }
   .date {
     text-align: right;
+    color: $clr-w;
+    margin-top: 0.5rem;
   }
 
   .edit-toggle {
