@@ -58,7 +58,12 @@ export default {
     ])
   },
   methods: {
-    ...mapMutations(['setRepoOwner', 'setRepoName', 'setIssues']),
+    ...mapMutations([
+      'setRepoOwner',
+      'setRepoName',
+      'setIssues',
+      'clearIssues'
+    ]),
     async loadMore($state) {
       await this.fetchIssue(this.pageInfo.endCursor)
 
@@ -85,6 +90,7 @@ export default {
         this.setIssues({ ...data.repository.issues, append: !!endCursor })
       } catch (err) {
         console.error(err)
+        this.clearIssues()
         this.showErrorMsg({ message: err.message })
       }
     }

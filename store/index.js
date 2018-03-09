@@ -16,6 +16,11 @@ export const mutations = {
   setRepoName(state, repoName) {
     state.repoName = repoName
   },
+  clearIssues(state) {
+    state.totalCount = 0
+    state.nodes = []
+    state.pageInfo = {}
+  },
   setIssues(state, { totalCount, nodes, pageInfo, append }) {
     state.totalCount = totalCount
     state.nodes = append ? [...state.nodes, ...nodes] : nodes
