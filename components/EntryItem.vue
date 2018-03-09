@@ -51,7 +51,7 @@
 
         </div>
       </div>
-      <div class="date">{{post.createdAt | date}}</div>
+      <div class="date" :title="post.createdAt | fullDate">{{post.createdAt | date}}</div>
 
     </div>
 
@@ -71,6 +71,11 @@ export default {
     date(time) {
       return DateTime.fromISO(time, { zone: 'Asia/Tokyo' }).toFormat(
         'MM/dd hh:mm'
+      )
+    },
+    fullDate(time) {
+      return DateTime.fromISO(time, { zone: 'Asia/Tokyo' }).toFormat(
+        'yyyy/MM/dd hh:mm:ss'
       )
     }
   },
