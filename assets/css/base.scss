@@ -1,5 +1,6 @@
 @import 'node_modules/modern-normalize/modern-normalize.css';
 @import 'node_modules/prismjs/themes/prism.css';
+@import '~assets/css/_vars.scss';
 
 @font-face {
   font-family: 'Yu Gothic';
@@ -53,7 +54,6 @@ body {
 }
 
 body {
-  background: hsl(0, 0%, 95%);
   font-size: 16px;
   background: #fff8e9;
   color: #36353f;
@@ -84,7 +84,7 @@ h4,
 h5,
 h6 {
   font-weight: 700;
-  color: #3fbbd4;
+  color: $clr-2-d;
   text-shadow: 2px 2px 1px #fff, -2px 2px 1px #fff, 2px -2px 1px #fff,
     -2px -2px 1px #fff;
 }
@@ -93,7 +93,7 @@ a {
   text-decoration: none;
 }
 .body a {
-  color: #3fbbd4;
+  color: $clr-1;
   text-shadow: 2px 2px 1px #fff, -2px 2px 1px #fff, 2px -2px 1px #fff,
     -2px -2px 1px #fff;
   word-break: break-all;

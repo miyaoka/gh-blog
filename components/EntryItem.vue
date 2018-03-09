@@ -1,47 +1,60 @@
 <template>
   <article class="article">
-    <header>
-      <h3 class="title">{{post.title}}</h3>
-      <a :href="post.url" target="_blank" rel="noopener">[Issue URL]</a>
-      <p>{{post.createdAt | date}}</p>
-      <div class="author">
+    <div class="author">
+      <div class="icon">
         <img :src="post.author.avatarUrl">
-        <p class="author-name">{{post.author.login}}</p>
       </div>
-    </header>
-    <div class="body">
-      <vue-markdown
-        class="marked"
-        :source="previewBody"
-        :anchorAttributes="{
-          target: '_blank',
-          rel: 'noopener'
-        }"/>
-      <transition name="fade">
-      <div
-        v-if="isEditing"
-        class="edit"
-        >
-        <textarea
-          v-model="editorBody"
-          :disabled="isCommiting"
-        />
-      </div>
-      </transition>
+      <div class="author-name">{{post.author.login}}</div>
     </div>
-    <div v-if="isDev">
-      <button @click="toggleEdit">{{isEditing ? 'プレビュー' : '編集'}}</button>
-      <div v-if="hasDiff">
+
+    <div class="main">
+      <div class="bubble">
+        <header>
+          <h3 class="title"><a :href="post.url" target="_blank" rel="noopener">{{post.title}}</a></h3>
+        </header>
+        <div class="body">
+          <vue-markdown
+            class="marked"
+            :source="previewBody"
+            :anchorAttributes="{
+              target: '_blank',
+              rel: 'noopener'
+            }"/>
+          <transition name="fade">
+          <div
+            v-if="isEditing"
+            class="editor"
+            >
+            <textarea
+              v-model="editorBody"
+              :disabled="isCommiting"
+            />
+          </div>
+          </transition>
+
+      <div class="edit-toggle" v-if="isDev">
+        <button @click="toggleEdit">{{isEditing ? 'プレビュー' : '編集'}}</button>
+      </div>
+      <transition name="edit-action">
+      <div class="edit-action" v-if="hasDiff">
         <button
           @click="discardEdit"
           :disabled="isCommiting"
-          >キャンセル</button>
+          >戻す</button>
+          /
         <button
           @click="saveEdit"
           :disabled="isCommiting"
           >保存</button>
       </div>
+      </transition>
+
+        </div>
+      </div>
+      <div class="date">{{post.createdAt | date}}</div>
+
     </div>
+
   </article>
 </template>
 
@@ -57,7 +70,7 @@ export default {
   filters: {
     date(time) {
       return DateTime.fromISO(time, { zone: 'Asia/Tokyo' }).toFormat(
-        'yyyy/MM/dd hh:mm:ss'
+        'MM/dd hh:mm'
       )
     }
   },
@@ -128,55 +141,142 @@ export default {
 
 <style lang="scss" scoped>
 @import '~assets/css/mixin/_mediaquery.scss';
-$date-size: 50px;
-$date-pad: 6px;
+@import '~assets/css/_vars.scss';
+
+$bubble-border-clr: $clr-w-d;
+$bubble-border-width: 5px;
+$bubble-bg-clr: $clr-w-ll;
+$bubble-arrow-size: 25px;
 
 .article {
   margin: 2rem 0;
-  padding: 1rem;
-  border-radius: 1rem;
+  display: grid;
+  grid-template-columns: 150px 650px;
+  width: 600px;
 
-  background: #fff;
+  @include mq(tb) {
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+  }
+}
+.author {
+  justify-self: center;
+  align-self: end;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto;
+  justify-items: center;
+  grid-gap: 0.5rem;
+
+  .icon {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+    border: 5px solid $clr-1;
+    background: #fff;
+  }
+  img {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.main {
+  position: relative;
+
+  .bubble {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: $bubble-bg-clr;
+    border: $bubble-border-width solid $bubble-border-clr;
+    position: relative;
+    padding-left: 20px;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: $bubble-arrow-size dashed transparent;
+      font-size: 0;
+      right: 100%;
+      bottom: 50px;
+    }
+    &:before {
+      border-right-style: solid;
+      border-right-color: $bubble-border-clr;
+      margin-bottom: -$bubble-arrow-size;
+    }
+    &:after {
+      border: calc(#{$bubble-arrow-size} - #{$bubble-border-width * 1.4}) dashed
+        transparent;
+      border-right-style: solid;
+      border-right-color: $bubble-bg-clr;
+      margin-bottom: calc(
+        -#{$bubble-arrow-size} + #{$bubble-border-width * 1.4}
+      );
+    }
+  }
 
   .title {
     font-size: 1.8rem;
     margin: 0;
-  }
-  .author {
-    display: grid;
-    grid-template-columns: auto auto;
-    img {
-      width: 40px;
+    a {
+      color: inherit;
     }
   }
   .body {
-    border: 1px solid #eee;
+    position: relative;
     padding: 1rem;
-  }
-}
+    min-height: 3rem;
+    .marked {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    .editor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
 
-.body {
-  position: relative;
-  min-height: 3rem;
-  .marked {
-    font-size: 1.1rem;
-    line-height: 1.5;
-  }
-  .edit {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    textarea {
-      background: hsla(0, 0%, 0%, 0.9);
-      color: hsla(0, 0%, 100%, 0.9);
-      width: 100%;
-      height: 100%;
+      textarea {
+        background: hsla(0, 0%, 0%, 0.9);
+        color: hsla(0, 0%, 100%, 0.9);
+        width: 100%;
+        height: 100%;
+        min-height: 10rem;
+      }
     }
   }
+  .date {
+    text-align: right;
+  }
+
+  .edit-toggle {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+  }
+  .edit-action {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    background: $clr-1-l;
+    border: $clr-1 1px solid;
+    padding: 0.5rem 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: 0.2s ease-out;
@@ -185,5 +285,14 @@ $date-pad: 6px;
 .fade-leave-to {
   opacity: 0;
   transform: scale(0.95);
+}
+
+.edit-action-enter-active,
+.edit-action-leave-active {
+  transition: 0.2s ease-out;
+}
+.edit-action-enter,
+.edit-action-leave-to {
+  opacity: 0;
 }
 </style>
