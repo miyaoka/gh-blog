@@ -32,22 +32,22 @@
           </div>
           </transition>
 
-      <div class="edit-toggle" v-if="isDev">
-        <button @click="toggleEdit">{{isEditing ? 'プレビュー' : '編集'}}</button>
-      </div>
-      <transition name="edit-action">
-      <div class="edit-action" v-if="hasDiff">
-        <button
-          @click="discardEdit"
-          :disabled="isCommiting"
-          >戻す</button>
-          /
-        <button
-          @click="saveEdit"
-          :disabled="isCommiting"
-          >保存</button>
-      </div>
-      </transition>
+          <div class="edit-toggle" v-if="isDev">
+            <button @click="toggleEdit">{{isEditing ? 'プレビュー' : '編集'}}</button>
+          </div>
+          <transition name="edit-action">
+          <div class="edit-action" v-if="hasDiff">
+            <button
+              @click="discardEdit"
+              :disabled="isCommiting"
+              >戻す</button>
+              /
+            <button
+              @click="saveEdit"
+              :disabled="isCommiting"
+              >保存</button>
+          </div>
+          </transition>
 
         </div>
       </div>
@@ -166,7 +166,7 @@ $bubble-arrow-size: 25px;
 }
 .author {
   justify-self: center;
-  align-self: end;
+  align-self: start;
   position: relative;
   display: grid;
   grid-template-rows: auto;
@@ -213,21 +213,19 @@ $bubble-arrow-size: 25px;
       border: $bubble-arrow-size dashed transparent;
       font-size: 0;
       right: 100%;
-      bottom: 50px;
+      top: 45px;
     }
     &:before {
       border-right-style: solid;
       border-right-color: $bubble-border-clr;
-      margin-bottom: -$bubble-arrow-size;
+      margin-top: -$bubble-arrow-size;
     }
     &:after {
       border: calc(#{$bubble-arrow-size} - #{$bubble-border-width * 1.4}) dashed
         transparent;
       border-right-style: solid;
       border-right-color: $bubble-bg-clr;
-      margin-bottom: calc(
-        -#{$bubble-arrow-size} + #{$bubble-border-width * 1.4}
-      );
+      margin-top: calc(-#{$bubble-arrow-size} + #{$bubble-border-width * 1.4});
     }
   }
 
