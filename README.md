@@ -20,14 +20,14 @@ Demo site: https://gh-blog.netlify.com/
 
 ### Fill out params
 
-Create your OAuth tokens at [Personal Access Tokens](https://github.com/settings/tokens) and set below.
+Create your OAuth tokens at [Personal Access Tokens](https://github.com/settings/tokens), and set below.
 
 - `GH_QUERY_TOKEN` (Required: To fetch issues)
   - Select scopes: Turn off all scopes. (only public access)
 - `GH_MUTATION_TOKEN` (Optional: To edit issues on blog site. Don't use in public!!)
   - Select scopes: Only `public_repo` scope.
 
-Target repository config
+Set target repository
 
 - `GH_REPO_OWNER`
 - `GH_REPO_NAME`
