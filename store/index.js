@@ -40,8 +40,7 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit({ commit, state }, { app, env }) {
-    const repoOwner = env.GH_REPO_OWNER
-    const repoName = env.GH_REPO_NAME
+    const { GH_REPO_OWNER: repoOwner, GH_REPO_NAME: repoName } = env
 
     commit('setRepoOwner', repoOwner)
     commit('setRepoName', repoName)
@@ -50,8 +49,8 @@ export const actions = {
       const { data } = await app.apolloProvider.defaultClient.query({
         query: getIssues,
         variables: {
-          repoOwner: repoOwner,
-          repoName: repoName,
+          repoOwner,
+          repoName,
           fetchIssuePerPage: state.fetchIssuePerPage
         }
       })
