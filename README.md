@@ -1,4 +1,4 @@
-![github-blog](https://user-images.githubusercontent.com/1443118/37078315-150c8184-2222-11e8-9dc0-98d1fce3132c.png)
+![github-blog](https://user-images.githubusercontent.com/1443118/37141522-a05a276a-22f8-11e8-9d4c-652150986e93.png)
 
 # gh-blog
 
@@ -23,9 +23,9 @@ Demo site: https://gh-blog.netlify.com/
 Create your OAuth tokens at [Personal Access Tokens](https://github.com/settings/tokens) and set below.
 
 - `GH_QUERY_TOKEN` (Required: To fetch issues)
-  - Turn off all scopes. (only public access)
+  - Select scopes: Turn off all scopes. (only public access)
 - `GH_MUTATION_TOKEN` (Optional: To edit issues on blog site. Don't use in public!!)
-  - Set only `public_repo` scope.
+  - Select scopes: Only `public_repo` scope.
 
 Target repository config
 
