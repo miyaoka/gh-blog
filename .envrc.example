@@ -1,10 +1,10 @@
 # Create your tokens at https://github.com/settings/tokens
 
 ## Public token to fetch repository on production
-export GH_QUERY_TOKEN=
+export GH_READONLY_TOKEN=
 
 ## Private token to edit repository on local. Don't use in public!!!
-export GH_MUTATION_TOKEN=
+export GH_WRITE_TOKEN=
 
 ## Target repository
 export GH_REPO_OWNER=

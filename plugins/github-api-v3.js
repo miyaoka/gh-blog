@@ -6,7 +6,7 @@ export default ({ env }, inject) => {
     axios.create({
       baseURL: 'https://api.github.com',
       timeout: 10000,
-      headers: { authorization: `token ${env.GH_MUTATION_TOKEN}` }
+      headers: { authorization: `token ${env.GH_WRITE_TOKEN}` }
     })
   )
 }
