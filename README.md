@@ -4,20 +4,33 @@
 
 > GitHub Issue as Blog
 
-https://twitter.com/miyaoka/status/970040889513922561
+Detail: https://twitter.com/miyaoka/status/970040889513922561
 
 ## Demo
 
-https://gh-blog.netlify.com/
+Demo site: https://gh-blog.netlify.com/
 
 <img width="600" alt="demo" src="https://user-images.githubusercontent.com/1443118/36947961-c069e93a-2016-11e8-9991-7e5605d071b0.png">
 
-## Usage
+## Require
 
-### Env settings
-- Copy `.env.sample` to `.env`
-- Fill out tokens
-  - GH_TOKEN from [Personal Access Tokens](https://github.com/settings/tokens)
+### Use direnv
+
+- Copy `.envrc.sample` to `.envrc`
+
+### Fill out params
+
+Create your OAuth tokens at [Personal Access Tokens](https://github.com/settings/tokens) and set below.
+
+- `GH_QUERY_TOKEN` (Required: To fetch issues)
+  - Turn off all scopes. (only public access)
+- `GH_MUTATION_TOKEN` (Optional: To edit issues on blog site. Don't use in public!!)
+  - Set only `public_repo` scope.
+
+Target repository config
+
+- `GH_REPO_OWNER`
+- `GH_REPO_NAME`
 
 ## Build Setup
 
