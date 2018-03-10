@@ -56,23 +56,23 @@ body {
 body {
   font-size: 16px;
   background: $clr-1;
-  color: #36353f;
+  color: $clr-b;
 }
 
 h1 {
-  font-size: 2rem;
-}
-h2 {
-  font-size: 2rem;
-}
-h3 {
   font-size: 1.6rem;
 }
-h4 {
+h2 {
   font-size: 1.4rem;
 }
-h5 {
+h3 {
   font-size: 1.2rem;
+}
+h4 {
+  font-size: 1rem;
+}
+h5 {
+  font-size: 1rem;
 }
 h6 {
   font-size: 1rem;
@@ -83,8 +83,9 @@ h3,
 h4,
 h5,
 h6 {
+  margin: 0.5rem 0;
   font-weight: 700;
-  color: $clr-2-d;
+  color: $clr-b-d;
   text-shadow: 2px 2px 1px #fff, -2px 2px 1px #fff, 2px -2px 1px #fff,
     -2px -2px 1px #fff;
 }
@@ -102,9 +103,16 @@ a {
 blockquote {
   padding: 0.5rem 1rem;
   margin: 1rem 0;
+  border-left: 4px solid $clr-w;
   font-size: 0.9rem;
-  border-left: 4px solid #eee;
-  color: #666;
+  color: $clr-b-l;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+  & > :last-child {
+    margin-bottom: 0;
+  }
 }
 
 iframe {

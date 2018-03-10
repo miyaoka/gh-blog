@@ -13,13 +13,16 @@
           <h3 class="title"><a :href="post.url" target="_blank" rel="noopener">{{post.title}}</a></h3>
         </header>
         <div class="body" :class="{hasDiff}">
-          <vue-markdown
-            class="marked"
-            :source="previewBody"
-            :anchorAttributes="{
-              target: '_blank',
-              rel: 'noopener'
-            }"/>
+          <section>
+            <vue-markdown
+              class="marked"
+              :source="previewBody"
+              :anchorAttributes="{
+                target: '_blank',
+                rel: 'noopener'
+              }"
+            />
+          </section>
           <transition name="fade">
           <div
             v-if="isEditing"

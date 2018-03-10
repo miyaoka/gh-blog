@@ -101,10 +101,15 @@ export default {
 <style lang="scss">
 @import '~assets/css/_vars.scss';
 
-.infinite-loading-container .loading-default {
-  border-color: $clr-w !important;
-  &:before {
-    background-color: $clr-w !important;
+.infinite-loading-container {
+  .infinite-status-prompt {
+    color: $clr-w-d !important;
+  }
+  .loading-default {
+    border-color: $clr-w !important;
+    &:before {
+      background-color: $clr-w !important;
+    }
   }
 }
 </style>
