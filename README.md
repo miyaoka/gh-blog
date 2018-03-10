@@ -12,11 +12,11 @@ Demo site: https://gh-blog.netlify.com/
 
 <img width="600" alt="demo" src="https://user-images.githubusercontent.com/1443118/36947961-c069e93a-2016-11e8-9991-7e5605d071b0.png">
 
-## Require
+## Env settings
 
 ### Use direnv
 
-- Copy `.envrc.sample` to `.envrc`
+- Copy `.envrc.example` to `.envrc`
 
 ### Fill out params
 
