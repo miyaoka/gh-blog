@@ -12,7 +12,7 @@
         <header>
           <h3 class="title"><a :href="post.url" target="_blank" rel="noopener">{{post.title}}</a></h3>
         </header>
-        <div class="body">
+        <div class="body" :class="{hasDiff}">
           <vue-markdown
             class="marked"
             :source="previewBody"
@@ -40,7 +40,7 @@
             <button
               @click="discardEdit"
               :disabled="isCommiting"
-              >戻す</button>
+              >変更を破棄</button>
               /
             <button
               @click="saveEdit"
@@ -240,6 +240,10 @@ $bubble-arrow-size: 25px;
     position: relative;
     padding: 1rem;
     min-height: 3rem;
+    &.hasDiff {
+      border: 2px $clr-1 dashed;
+    }
+
     .marked {
       font-size: 1.1rem;
       line-height: 1.5;
@@ -276,10 +280,10 @@ $bubble-arrow-size: 25px;
     left: 50%;
     top: 100%;
     transform: translateX(-50%);
-    background: $clr-1-l;
-    border: $clr-1 1px solid;
+    background: $clr-2-d;
+    border: $clr-2 1px solid;
     padding: 0.5rem 1rem;
-    border-radius: 0 0 0.5rem 0.5rem;
+    border-radius: 0.5rem;
   }
 }
 
