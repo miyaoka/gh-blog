@@ -25,11 +25,15 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'gh-blog',
+    title: 'GitHub Issue as blog',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'GH Blog' }
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'GitHub Issue as blog'
+      }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
