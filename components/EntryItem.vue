@@ -73,12 +73,12 @@ export default {
   filters: {
     date(time) {
       return DateTime.fromISO(time, { zone: 'Asia/Tokyo' }).toFormat(
-        'MM/dd hh:mm'
+        'MM/dd HH:mm'
       )
     },
     fullDate(time) {
       return DateTime.fromISO(time, { zone: 'Asia/Tokyo' }).toFormat(
-        'yyyy/MM/dd hh:mm:ss'
+        'yyyy/MM/dd HH:mm:ss'
       )
     }
   },
