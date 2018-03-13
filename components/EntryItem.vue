@@ -163,8 +163,8 @@ $bubble-arrow-size: 25px;
   width: 600px;
 
   @include mq(tb) {
-    grid-template-columns: auto;
-    grid-template-rows: auto;
+    display: block;
+    width: auto;
   }
 }
 .author {
@@ -230,6 +230,12 @@ $bubble-arrow-size: 25px;
       border-right-color: $bubble-bg-clr;
       margin-top: calc(-#{$bubble-arrow-size} + #{$bubble-border-width * 1.4});
     }
+    @include mq(tb) {
+      &:before,
+      &:after {
+        content: none;
+      }
+    }
   }
 
   .title {
@@ -243,6 +249,11 @@ $bubble-arrow-size: 25px;
     position: relative;
     padding: 1rem;
     min-height: 3rem;
+
+    @include mq(tb) {
+      padding: 1rem 0;
+    }
+
     &.hasDiff {
       border: 2px $clr-1 dashed;
     }

@@ -50,6 +50,7 @@ $footer-height: 120px;
 
   @include mq(tb) {
     max-width: 560px;
+    padding: 0 0.5rem;
   }
 }
 .footer {
