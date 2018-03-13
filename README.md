@@ -4,13 +4,16 @@
 
 > GitHub Issue as Blog
 
-Detail: https://twitter.com/miyaoka/status/970040889513922561
+## Article
+
+- [tweet: "azuさんがGitHubのIssueをコンテンツに使う話してて面白そうだったので、とりあえず作ってみてる"](https://twitter.com/miyaoka/status/970040889513922561)
+- [GitHub Issuesでブログを作る - Qiita](https://qiita.com/miyaoka/items/1922d5d8528fe31016b9)
 
 ## Demo
 
 Demo site: https://gh-blog.netlify.com/
 
-<img width="600" alt="demo" src="https://user-images.githubusercontent.com/1443118/36947961-c069e93a-2016-11e8-9991-7e5605d071b0.png">
+<img src="https://user-images.githubusercontent.com/1443118/37316843-c3439612-26a4-11e8-90e1-1134a4b6a0da.gif" width="600">
 
 ## Env settings
 
