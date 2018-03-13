@@ -55,6 +55,16 @@
         </div>
       </div>
       <div class="date" :title="post.createdAt | fullDate">{{post.createdAt | date}}</div>
+      <div class="comments" v-if="post.comments.totalCount > 0">
+        comments: {{post.comments.totalCount}}
+        <a
+          v-for="comment in post.comments.nodes"
+          :key="comment.id"
+          :href="comment.url"
+          target="_blank"
+          rel="noopener"
+        ><img :src="comment.author.avatarUrl"></a>
+      </div>
 
     </div>
 
@@ -198,6 +208,8 @@ $bubble-arrow-size: 25px;
 
 .main {
   position: relative;
+  display: grid;
+  grid-gap: 0.5rem;
 
   .bubble {
     padding: 1rem;
@@ -281,7 +293,6 @@ $bubble-arrow-size: 25px;
   .date {
     text-align: right;
     color: $clr-w;
-    margin-top: 0.5rem;
   }
 
   .edit-toggle {
@@ -298,6 +309,17 @@ $bubble-arrow-size: 25px;
     border: $clr-2 1px solid;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
+  }
+
+  .comments {
+    text-align: right;
+    color: $clr-w-d;
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 3px solid $clr-w-d;
+    }
   }
 }
 

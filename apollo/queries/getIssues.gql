@@ -1,6 +1,7 @@
 query getIssues(
   $repoOwner: String!
   $repoName: String!
+  $fetchCommentsPerIssue: Int = 5
   $fetchIssuePerPage: Int = 5
   $endCursor: String
 ) {
@@ -33,6 +34,19 @@ query getIssues(
         createdAt
         updatedAt
         url
+        comments(last: $fetchCommentsPerIssue) {
+          totalCount
+          nodes {
+            author {
+              avatarUrl
+              login
+              resourcePath
+              url
+            }
+            id
+            url
+          }
+        }
       }
     }
   }
