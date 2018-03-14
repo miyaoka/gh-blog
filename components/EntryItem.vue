@@ -210,6 +210,7 @@ $bubble-arrow-size: 25px;
   position: relative;
   display: grid;
   grid-gap: 0.5rem;
+  grid-template-columns: minmax(100%, 100%);
 
   .bubble {
     padding: 1rem;
