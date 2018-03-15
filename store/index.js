@@ -1,6 +1,6 @@
 import getIssues from '~/apollo/queries/getIssues'
 
-export const state = (a) => ({
+export const state = () => ({
   repoOwner: '',
   repoName: '',
   fetchIssuePerPage: 20,
